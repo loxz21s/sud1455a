@@ -208,43 +208,6 @@ body {
 }
 
 
-/* ==== Estilos Responsivos para móviles ==== */
-@media (max-width: 768px) {
-    body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background-color: #f8f8f8;
-    }
-
-    .container, .login-box, form {
-        width: 100% !important;
-        max-width: 400px;
-        margin: auto;
-        padding: 20px;
-        box-sizing: border-box;
-    }
-
-    input[type="text"], input[type="password"], button {
-        width: 100% !important;
-        box-sizing: border-box;
-    }
-
-    img {
-        max-width: 100%;
-        height: auto;
-    }
-
-    /* Si hay columnas, ponerlas en una sola */
-    .row, .columns {
-        display: block !important;
-    }
-}
-
-
 /* ==== RESPONSIVE SOLO PARA MÓVILES ==== */
 @media (max-width: 768px) {
     body, html {
